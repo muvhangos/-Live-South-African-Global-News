@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +29,7 @@
 </header>
 
 <div class="news-container" id="newsContainer">
-  <!-- News cards inserted here -->
+  <p>Loading news...</p>
 </div>
 
 <footer>&copy; 2025 Live News Page</footer>
@@ -65,28 +66,42 @@ async function fetchFeed(feed) {
 
 async function loadNews() {
   const container = document.getElementById('newsContainer');
-  container.innerHTML = '';
-  let allNews = [];
-  for (const f of feeds) {
-    const items = await fetchFeed(f);
-    allNews = allNews.concat(items);
-  }
-  allNews.sort(() => 0.5 - Math.random());
-  const toShow = allNews.slice(0, 20); // show up to 20 items
+  container.innerHTML = '<p>Loading news...</p>';
 
-  toShow.forEach(article => {
-    const card = document.createElement('div');
-    card.className = 'news-card';
-    card.innerHTML = `
-      <img src="${article.image || 'https://via.placeholder.com/300x180?text=No+Image'}" alt="News Image">
-      <div class="news-content">
-        <div class="news-title">${article.title}</div>
-        <div class="news-desc">${article.description.replace(/<[^>]+>/g,'').substring(0,120) + '...'}</div>
-        <div class="news-meta">${article.region}</div>
-        <a href="${article.link}" target="_blank">Read More</a>
-      </div>`;
-    container.appendChild(card);
-  });
+  try {
+    // Fetch all feeds in parallel
+    const feedPromises = feeds.map(f => fetchFeed(f));
+    const results = await Promise.all(feedPromises);
+    let allNews = results.flat();
+
+    // Prioritize South African news first
+    let localNews = allNews.filter(n => n.region === 'South Africa');
+    let otherNews = allNews.filter(n => n.region !== 'South Africa');
+
+    // Shuffle within each group for variety
+    localNews.sort(() => 0.5 - Math.random());
+    otherNews.sort(() => 0.5 - Math.random());
+
+    const toShow = [...localNews, ...otherNews].slice(0, 20);
+
+    container.innerHTML = ''; // clear loading
+    toShow.forEach(article => {
+      const card = document.createElement('div');
+      card.className = 'news-card';
+      card.innerHTML = `
+        <img src="${article.image || 'https://via.placeholder.com/300x180?text=No+Image'}" alt="News Image">
+        <div class="news-content">
+          <div class="news-title">${article.title}</div>
+          <div class="news-desc">${article.description.replace(/<[^>]+>/g,'').substring(0,120) + '...'}</div>
+          <div class="news-meta">${article.region}</div>
+          <a href="${article.link}" target="_blank">Read More</a>
+        </div>`;
+      container.appendChild(card);
+    });
+  } catch (e) {
+    container.innerHTML = '<p>Error loading news. Please try again later.</p>';
+    console.error('Error loading news:', e);
+  }
 }
 
 loadNews();
