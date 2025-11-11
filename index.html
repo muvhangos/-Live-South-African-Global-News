@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ClickSA | Live South African Headlines</title>
-  <meta name="description" content="Get the latest breaking news from South Africa. ClickSA brings you real-time updates on local, business, and sports headlines.">
-  <style>
-    body { font-family: 'Poppins', sans-serif; background: #f8f9fa; margin: 0; padding: 0; color: #222; }
-    header { background: linear-gradient(to right, #007bff, #00b74a, #ffcc00); color: white; text-align: center; padding: 20px; font-size: 1.8em; font-weight: bold; display:flex; justify-content:center; align-items:center; gap:10px; overflow:hidden; }
-    .logo-icon { width:35px; height:25px; border-radius:4px; animation: spin 6s linear infinite; }
-    .click-icon { display:inline-block; margin-left:8px; animation: clickMove 1s infinite; }
-    @keyframes spin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
-    @keyframes clickMove { 0% { transform: translateY(0); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0); } }
-    .hand-svg path { animation: colorPulse 3s infinite; }
-    @keyframes colorPulse { 0% { fill: #007bff; } 33% { fill: #00b74a; } 66% { fill: #ffcc00; } 100% { fill: #007bff; } }
-    nav { display:flex; justify-content:center; background:#222; color:white; gap:20px; padding:10px; }
-    nav button { background:none; border:none; color:white; cursor:pointer; font-size:1em; transition: color 0.3s; }
-    nav button:hover { color:#00b74a; }
-    nav button.active { border-bottom:2px solid #ffcc00; color:#ffcc00; }
-    .news-container { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:20px; }
-    .news-card { background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); overflow:hidden; width:300px; transition:transform 0.2s; display:flex; flex-direction:column; }
-    .news-card:hover { transform:translateY(-5px); }
-    .news-card img { width:100%; height:180px; object-fit:cover; }
-    .news-content { padding:15px; display:flex; flex-direction:column; flex:1; }
-    .news-title { font-size:18px; font-weight:bold; margin-bottom:10px; color:#222; }
-    .news-desc { font-size:14px; color:#555; margin-bottom:10px; }
-    .news-meta { font-size:12px; color:#888; margin-bottom:10px; }
-    .ads { background:#f1f1f1; text-align:center; margin:20px; padding:10px; border-radius:8px; font-size:14px; }
-    footer { text-align:center; background:#111; color:white; padding:15px; margin-top:30px; font-size:14px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClickSA | Live South African Headlines</title>
+<meta name="description" content="Get the latest breaking news from South Africa. ClickSA brings you real-time updates on local, business, and sports headlines.">
+<style>
+body { font-family: 'Poppins', sans-serif; background: #f8f9fa; margin: 0; padding: 0; color: #222; }
+header { background: linear-gradient(to right, #007bff, #00b74a, #ffcc00); color: white; text-align: center; padding: 20px; font-size: 1.8em; font-weight: bold; display:flex; justify-content:center; align-items:center; gap:10px; overflow:hidden; }
+.logo-icon { width:35px; height:25px; border-radius:4px; animation: spin 6s linear infinite; }
+.click-icon { display:inline-block; margin-left:8px; animation: clickMove 1s infinite; }
+@keyframes spin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+@keyframes clickMove { 0% { transform: translateY(0); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0); } }
+.hand-svg path { animation: colorPulse 3s infinite; }
+@keyframes colorPulse { 0% { fill: #007bff; } 33% { fill: #00b74a; } 66% { fill: #ffcc00; } 100% { fill: #007bff; } }
+nav { display:flex; justify-content:center; background:#222; color:white; gap:20px; padding:10px; }
+nav button { background:none; border:none; color:white; cursor:pointer; font-size:1em; transition: color 0.3s; }
+nav button:hover { color:#00b74a; }
+nav button.active { border-bottom:2px solid #ffcc00; color:#ffcc00; }
+.news-container { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:20px; }
+.news-card { background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); overflow:hidden; width:300px; transition:transform 0.2s; display:flex; flex-direction:column; }
+.news-card:hover { transform:translateY(-5px); }
+.news-card img { width:100%; height:180px; object-fit:cover; }
+.news-content { padding:15px; display:flex; flex-direction:column; flex:1; }
+.news-title { font-size:18px; font-weight:bold; margin-bottom:10px; color:#222; }
+.news-desc { font-size:14px; color:#555; margin-bottom:10px; }
+.news-meta { font-size:12px; color:#888; margin-bottom:10px; }
+.ads { background:#f1f1f1; text-align:center; margin:20px; padding:10px; border-radius:8px; font-size:14px; }
+footer { text-align:center; background:#111; color:white; padding:15px; margin-top:30px; font-size:14px; }
+</style>
 </head>
 <body>
 
@@ -57,7 +57,6 @@
   <p>Your home for fresh, real-time updates from South Africa. We bring you the top stories, insightful business coverage, and the latest in local sports — all in one place.</p>
 </section>
 
-<!-- Top Picks of the Day -->
 <section style="padding:20px; text-align:center; max-width:900px; margin:auto;">
   <h2>Top Picks of the Day</h2>
   <div id="topPicks" class="news-container">
@@ -65,13 +64,11 @@
   </div>
 </section>
 
-<!-- Local Insights -->
 <section style="padding:20px; text-align:center; max-width:700px; margin:auto;">
   <h2>Local Insights</h2>
   <p>Stay informed with expert commentary and analysis on current events affecting South Africa. This section provides context and perspectives that help you understand the bigger picture.</p>
 </section>
 
-<!-- Main News Feed -->
 <div id="newsContainer" class="news-container">
   <p>Loading latest headlines...</p>
 </div>
@@ -102,6 +99,15 @@ const categories = {
   ]
 };
 
+// Fallback images for Top Picks
+const fallbackImages = [
+  'https://via.placeholder.com/300x180?text=ClickSA+News',
+  'https://via.placeholder.com/300x180?text=Breaking+News',
+  'https://via.placeholder.com/300x180?text=Top+Story',
+  'https://via.placeholder.com/300x180?text=South+Africa'
+];
+
+// Fetch RSS feed
 async function fetchFeed(feed){
   try{
     const resp = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url));
@@ -117,21 +123,30 @@ async function fetchFeed(feed){
   }catch(e){ console.error('Feed error:', feed.url); return []; }
 }
 
+// Generate short summary for originality
+function generateSummary(desc, wordLimit=35){
+  const text = desc.replace(/<[^>]+>/g,'');
+  const words = text.split(/\s+/);
+  if(words.length <= wordLimit) return text;
+  return words.slice(0,wordLimit).join(' ')+'…';
+}
+
+// Load main news
 async function loadNews(category='general'){
-  const container = document.getElementById('newsContainer');
-  container.innerHTML = '<p>Loading news...</p>';
-  const feedPromises = categories[category].map(feed => fetchFeed(feed));
-  const allNewsArrays = await Promise.all(feedPromises);
-  const allNews = allNewsArrays.flat();
-  container.innerHTML = '';
+  const container=document.getElementById('newsContainer');
+  container.innerHTML='<p>Loading news...</p>';
+  const feedPromises=categories[category].map(feed=>fetchFeed(feed));
+  const allNewsArrays=await Promise.all(feedPromises);
+  const allNews=allNewsArrays.flat();
+  container.innerHTML='';
   allNews.slice(0,18).forEach(article=>{
-    const card = document.createElement('div');
+    const card=document.createElement('div');
     card.className='news-card';
     card.innerHTML=`
-      <img src="${article.image || 'https://via.placeholder.com/300x180?text=ClickSA'}" alt="News Image">
+      <img src="${article.image || fallbackImages[Math.floor(Math.random()*fallbackImages.length)]}" alt="News Image">
       <div class="news-content">
         <div class="news-title">${article.title}</div>
-        <div class="news-desc">${article.description.replace(/<[^>]+>/g,'').substring(0,120)}...</div>
+        <div class="news-desc">${generateSummary(article.description)}</div>
         <div class="news-meta">${article.region}</div>
         <a href="${article.link}" target="_blank">Read Full Story</a>
       </div>`;
@@ -139,28 +154,24 @@ async function loadNews(category='general'){
   });
 }
 
+// Load Top Picks with dynamic images
 async function loadTopPicks(){
-  const container = document.getElementById('topPicks');
-  container.innerHTML = '<p>Loading Top Picks...</p>';
-
-  // Collect feeds from all categories
-  const allFeeds = [...categories.general, ...categories.business, ...categories.sports];
-  const feedPromises = allFeeds.map(feed=>fetchFeed(feed));
-  const allNewsArrays = await Promise.all(feedPromises);
-  const allNews = allNewsArrays.flat();
-
-  // Shuffle articles for diverse highlights
+  const container=document.getElementById('topPicks');
+  container.innerHTML='<p>Loading Top Picks...</p>';
+  const allFeeds=[...categories.general,...categories.business,...categories.sports];
+  const feedPromises=allFeeds.map(feed=>fetchFeed(feed));
+  const allNewsArrays=await Promise.all(feedPromises);
+  let allNews=allNewsArrays.flat();
   allNews.sort(()=>Math.random()-0.5);
-
-  container.innerHTML = '';
+  container.innerHTML='';
   allNews.slice(0,3).forEach(article=>{
     const card=document.createElement('div');
     card.className='news-card';
     card.innerHTML=`
-      <img src="${article.image || 'https://via.placeholder.com/300x180?text=ClickSA'}" alt="Top Pick Image">
+      <img src="${article.image || fallbackImages[Math.floor(Math.random()*fallbackImages.length)]}" alt="Top Pick Image">
       <div class="news-content">
         <div class="news-title">${article.title}</div>
-        <div class="news-desc">${article.description.replace(/<[^>]+>/g,'').substring(0,120)}...</div>
+        <div class="news-desc">${generateSummary(article.description)}</div>
         <div class="news-meta">${article.region}</div>
         <a href="${article.link}" target="_blank">Read Full Story</a>
       </div>`;
@@ -168,6 +179,7 @@ async function loadTopPicks(){
   });
 }
 
+// Navigation
 function showCategory(cat){
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
   event.target.classList.add('active');
@@ -180,7 +192,7 @@ loadTopPicks();
 
 // Refresh every 5 minutes
 setInterval(()=>{
-  const active = document.querySelector('nav button.active').innerText.toLowerCase();
+  const active=document.querySelector('nav button.active').innerText.toLowerCase();
   loadNews(active);
   loadTopPicks();
 },5*60*1000);
