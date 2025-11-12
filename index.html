@@ -27,7 +27,7 @@ nav button.active { border-bottom:2px solid #ffcc00; color:#ffcc00; }
 .news-desc { font-size:14px; color:#555; margin-bottom:10px; }
 .news-meta { font-size:12px; color:#888; margin-bottom:10px; }
 
-.ads { background:#f1f1f1; text-align:center; margin:20px 0; padding:10px; border-radius:8px; font-size:14px; }
+.ads { background:#f1f1f1; text-align:center; margin:20px; padding:10px; border-radius:8px; font-size:14px; }
 
 #backToTop { display:none; position:fixed; bottom:40px; right:30px; z-index:99; font-size:18px; border:none; outline:none; background-color:#00b74a; color:white; cursor:pointer; padding:12px 16px; border-radius:50%; box-shadow:0 2px 6px rgba(0,0,0,0.3); transition: background 0.3s, transform 0.3s; }
 #backToTop:hover { background-color:#007bff; transform: scale(1.1); }
@@ -57,26 +57,16 @@ nav button.active { border-bottom:2px solid #ffcc00; color:#ffcc00; }
   <div id="breakingNewsContent">Loading breaking news...</div>
 </div>
 
-<!-- Top AdSense Ad -->
-<div class="ads">
-  <!-- ClickSA Top Ad (Responsive) -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXXXX"
-       data-ad-slot="XXXXXXXXXX"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
-
 <nav>
   <button class="active" onclick="showCategory('general')">General</button>
   <button onclick="showCategory('business')">Business</button>
   <button onclick="showCategory('sports')">Sports</button>
 </nav>
+
+<div class="ads">
+  <!-- Replace with your actual AdSense code -->
+  [Your AdSense ad here]
+</div>
 
 <section style="padding:20px; text-align:center; max-width:700px; margin:auto;">
   <h2>Welcome to ClickSA</h2>
@@ -90,21 +80,6 @@ nav button.active { border-bottom:2px solid #ffcc00; color:#ffcc00; }
   </div>
 </section>
 
-<!-- Mid-page AdSense Ad -->
-<div class="ads">
-  <!-- ClickSA Mid Ad (Responsive) -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXXXX"
-       data-ad-slot="XXXXXXXXXX"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</div>
-
 <section style="padding:20px; text-align:center; max-width:700px; margin:auto;">
   <h2>Local Insights</h2>
   <p>Original commentary and summaries for South African news. These insights help visitors understand the story behind the headlines.</p>
@@ -112,21 +87,6 @@ nav button.active { border-bottom:2px solid #ffcc00; color:#ffcc00; }
 
 <div id="newsContainer" class="news-container">
   <p>Loading latest headlines...</p>
-</div>
-
-<!-- Footer AdSense Ad -->
-<div class="ads">
-  <!-- ClickSA Footer Ad (Responsive) -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXXXX"
-       data-ad-slot="XXXXXXXXXX"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
 </div>
 
 <button id="backToTop" title="Back to Top">⬆️</button>
@@ -139,8 +99,196 @@ nav button.active { border-bottom:2px solid #ffcc00; color:#ffcc00; }
 </footer>
 
 <script>
-// --- JavaScript remains the same as previous version ---
-// This includes fetch for RSS, Breaking News ticker, Top Picks carousel, Back to Top button, category switch, etc.
+// Categories and feeds
+const categories = {
+  general: [
+    { url:'https://www.news24.com/rss', region:'South Africa' },
+    { url:'https://ewn.co.za/RSS', region:'South Africa' },
+    { url:'https://www.timeslive.co.za/rss/', region:'South Africa' },
+    { url:'https://www.iol.co.za/cmlink/1.640', region:'South Africa' }
+  ],
+  business: [
+    { url:'https://www.businesslive.co.za/bd/rss/', region:'Business' },
+    { url:'https://businesstech.co.za/news/feed/', region:'Business' },
+    { url:'https://rss.cnn.com/rss/money_news_international.rss', region:'International Business' }
+  ],
+  sports: [
+    { url:'https://www.sport24.co.za/RSS', region:'Sports' },
+    { url:'https://ewn.co.za/RSS/Sport', region:'Sports' },
+    { url:'https://www.bbc.co.uk/sport/africa/rss.xml', region:'Africa Sports' }
+  ]
+};
+
+const fallbackImages = [
+  'https://via.placeholder.com/300x180?text=ClickSA+News',
+  'https://via.placeholder.com/300x180?text=Breaking+News',
+  'https://via.placeholder.com/300x180?text=Top+Story',
+  'https://via.placeholder.com/300x180?text=South+Africa'
+];
+
+// Fetch and process feed
+async function fetchFeed(feed){
+  try {
+    const resp = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url));
+    const data = await resp.json();
+    if(!data.items) return [];
+    return data.items.map(item => ({
+      title: item.title,
+      description: item.description || '',
+      link: item.link,
+      image: (item.enclosure && item.enclosure.link) || item.thumbnail || '',
+      region: feed.region,
+      commentary: generateCommentary(item.title, item.description)
+    }));
+  } catch(e) {
+    console.error('Feed error:', feed.url);
+    return [];
+  }
+}
+
+// Original commentary for AdSense
+function generateCommentary(title, description){
+  const text = description.replace(/<[^>]+>/g,'').trim();
+  if(!text) return `Stay informed with the latest updates on "${title}". ClickSA provides insights and context.`;
+  const sentences = text.split('.').filter(s=>s.trim().length>20);
+  const summary = sentences.slice(0,2).join('. ') + '.';
+  return summary + ' ClickSA provides original insight for South African readers.';
+}
+
+// Populate main news section
+async function loadNews(category='general'){
+  const container=document.getElementById('newsContainer');
+  container.innerHTML='<p>Loading news...</p>';
+  const feedPromises = categories[category].map(feed=>fetchFeed(feed));
+  const allNewsArrays = await Promise.all(feedPromises);
+  const allNews = allNewsArrays.flat();
+  container.innerHTML='';
+  allNews.slice(0,18).forEach(article=>{
+    const card = document.createElement('div');
+    card.className='news-card';
+    card.innerHTML=`
+      <img src="${article.image || fallbackImages[Math.floor(Math.random()*fallbackImages.length)]}" alt="News Image" loading="lazy">
+      <div class="news-content">
+        <div class="news-title">${article.title}</div>
+        <div class="news-desc">${article.commentary}</div>
+        <div class="news-meta">${article.region}</div>
+        <a href="${article.link}" target="_blank">Read Full Story</a>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+// Populate Top Picks
+async function loadTopPicks(){
+  const container = document.getElementById('topPicks');
+  container.innerHTML='';
+  const allFeeds = [...categories.general,...categories.business,...categories.sports];
+  const feedPromises = allFeeds.map(feed=>fetchFeed(feed));
+  const allNewsArrays = await Promise.all(feedPromises);
+  let allNews = allNewsArrays.flat();
+  allNews.sort(()=>Math.random()-0.5);
+  allNews.slice(0,5).forEach(article=>{
+    const card = document.createElement('div');
+    card.className='news-card';
+    card.innerHTML=`
+      <img src="${article.image || fallbackImages[Math.floor(Math.random()*fallbackImages.length)]}" alt="Top Pick Image" loading="lazy">
+      <div class="news-content">
+        <div class="news-title">${article.title}</div>
+        <div class="news-desc">${article.commentary}</div>
+        <div class="news-meta">${article.region}</div>
+        <a href="${article.link}" target="_blank">Read Full Story</a>
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+// Breaking News Ticker
+async function loadBreakingNews(){
+  const container = document.getElementById('breakingNewsContent');
+  const allFeeds = [...categories.general,...categories.business,...categories.sports];
+  const feedPromises = allFeeds.map(feed=>fetchFeed(feed));
+  const allNewsArrays = await Promise.all(feedPromises);
+  const allNews = allNewsArrays.flat();
+  const headlines = allNews.slice(0,15).map(item=>`⚡ ${item.title}`).join('  •  ');
+  container.innerText = headlines;
+  animateTicker(container);
+}
+
+function animateTicker(container){
+  let start = container.offsetWidth;
+  container.style.transform = `translateX(${start}px)`;
+  const speed = 1; // pixels per frame
+  function tick(){
+    const left = container.getBoundingClientRect().left;
+    if(left + container.offsetWidth < 0) container.style.transform = `translateX(${window.innerWidth}px)`;
+    else container.style.transform = `translateX(${left-speed}px)`;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// Top Picks carousel logic
+let topPickIndex=0, currentTranslate=0;
+const topPicksEl = document.getElementById('topPicks');
+function slideTopPicks() {
+  const totalCards = topPicksEl.children.length;
+  if(totalCards<=3) return;
+  topPickIndex=(topPickIndex+1)%totalCards;
+  const cardWidth = topPicksEl.children[0].offsetWidth+20;
+  currentTranslate = -cardWidth*topPickIndex;
+  topPicksEl.style.transition='transform 0.5s ease';
+  topPicksEl.style.transform=`translateX(${currentTranslate}px)`;
+  setTimeout(()=>{ topPicksEl.style.transition=''; },500);
+}
+setInterval(slideTopPicks,4000);
+
+// Touch swipe for Top Picks
+let startX=0,isDragging=false;
+topPicksEl.addEventListener('touchstart',e=>{ startX=e.touches[0].clientX; isDragging=true; });
+topPicksEl.addEventListener('touchmove',e=>{
+  if(!isDragging) return;
+  const diff = e.touches[0].clientX-startX;
+  topPicksEl.style.transform=`translateX(${currentTranslate+diff}px)`;
+});
+topPicksEl.addEventListener('touchend',e=>{
+  isDragging=false;
+  const diff = e.changedTouches[0].clientX-startX;
+  const cardWidth = topPicksEl.children[0].offsetWidth+20;
+  if(diff<-50 && topPickIndex<topPicksEl.children.length-3) topPickIndex++;
+  else if(diff>50 && topPickIndex>0) topPickIndex--;
+  currentTranslate=-cardWidth*topPickIndex;
+  topPicksEl.style.transition='transform 0.5s ease';
+  topPicksEl.style.transform=`translateX(${currentTranslate}px)`;
+  setTimeout(()=>{ topPicksEl.style.transition=''; },500);
+});
+
+// Back to Top button
+const backToTopBtn=document.getElementById("backToTop");
+window.onscroll=function(){
+  if(document.body.scrollTop>300||document.documentElement.scrollTop>300) backToTopBtn.style.display="block";
+  else backToTopBtn.style.display="none";
+};
+backToTopBtn.addEventListener("click",()=>{ window.scrollTo({top:0,behavior:'smooth'}); });
+
+// Category switch
+function showCategory(cat){
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  loadNews(cat);
+  loadTopPicks();
+  loadBreakingNews();
+}
+
+// Initial load
+loadNews('general');
+loadTopPicks();
+loadBreakingNews();
+setInterval(()=>{
+  const active=document.querySelector('nav button.active').innerText.toLowerCase();
+  loadNews(active);
+  loadTopPicks();
+  loadBreakingNews();
+},5*60*1000);
 </script>
 
 </body>
