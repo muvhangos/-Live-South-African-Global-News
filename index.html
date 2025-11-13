@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ClickSA | Live South African News & Events</title>
-<meta name="description" content="ClickSA — live South African news, events, entertainment and local insights.">
+<title>Wintech Technologies | Live South African News & Events</title>
+<meta name="description" content="Wintech Technologies — live South African news, events, entertainment and local insights.">
 <style>
 :root{--accent:#00b74a;--accent2:#007bff;--accent3:#ffcc00;--bg:#f8f9fa;--card:#fff}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -19,8 +19,8 @@ header{display:flex;align-items:center;gap:10px;justify-content:center;padding:1
 #breakingNewsContent{display:inline-block;padding-left:100%;white-space:nowrap;animation:scrollTicker 30s linear infinite}
 @keyframes scrollTicker{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 nav{display:flex;gap:12px;justify-content:center;background:#222;padding:10px;flex-wrap:wrap}
-nav button{background:none;border:none;color:#fff;cursor:pointer;padding:8px 10px;font-size:0.95rem}
-nav button.active{border-bottom:2px solid var(--accent3);color:var(--accent3)}
+nav button, nav a{background:none;border:none;color:#fff;cursor:pointer;padding:8px 10px;font-size:0.95rem;text-decoration:none}
+nav button.active, nav a.active{border-bottom:2px solid var(--accent3);color:var(--accent3)}
 main{max-width:1200px;margin:48px auto 18px;padding:0 14px}
 h2{margin:0;font-size:1.2rem;margin-bottom:8px}
 .carousel-wrap {position:relative;overflow:hidden;width:100%;display:flex;align-items:center;height:220px;margin-bottom:20px;}
@@ -38,11 +38,8 @@ h2{margin:0;font-size:1.2rem;margin-bottom:8px}
 .cards .title{font-weight:700;margin-bottom:8px;font-size:1rem}
 .cards .desc{color:#555;font-size:0.92rem;line-height:1.2;max-height:3.6em;overflow:hidden}
 .cards .actions a{color:var(--accent2);text-decoration:none;font-weight:600}
-#adminPanel{display:none;padding:12px;background:#fff;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.06);margin:12px 0}
-.show-admin{display:block}
-.revenue-table{margin-top:12px;width:100%;border-collapse:collapse;}
-.revenue-table th, .revenue-table td{border:1px solid #ddd;padding:8px;text-align:center;}
-.revenue-table th{background-color:var(--accent2);color:#fff;}
+.page-content{background:#fff;padding:18px;margin:18px 0;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.06);}
+.adsense-box{margin:18px 0;text-align:center;}
 footer{margin-top:18px;padding:18px;background:#222;color:#fff;text-align:center;font-size:0.9rem}
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -50,7 +47,7 @@ footer{margin-top:18px;padding:18px;background:#222;color:#fff;text-align:center
 <body>
 
 <header>
-  <div class="site-title">ClickSA</div>
+  <div class="site-title">Wintech Technologies</div>
   <span class="click-icon">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
       <path d="M2 21h2V9.414l5.293 5.293 1.414-1.414L6 7.586V3h2v4.586l4.293 4.293 1.414-1.414L10 5.586V3h2v7.586l4 4V5h2v11.586l3.707 3.707-1.414 1.414L2 5V21z"/>
@@ -66,46 +63,99 @@ footer{margin-top:18px;padding:18px;background:#222;color:#fff;text-align:center
   <button data-cat="sports" onclick="handleNav(event)">Sports</button>
   <button data-cat="entertainment" onclick="handleNav(event)">Entertainment</button>
   <button data-cat="events" onclick="handleNav(event)">Events</button>
+  <a href="#about">About</a>
+  <a href="#privacy">Privacy Policy</a>
+  <a href="#contact">Contact</a>
 </nav>
 
 <main>
-  <section>
+  <!-- Carousel Section -->
+  <section id="newsSection">
     <h2>Top Headlines</h2>
     <div class="carousel-wrap">
       <div class="carousel-track" id="carouselTrack"></div>
     </div>
+    <div class="adsense-box">
+      <!-- Example AdSense Placeholder -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="1234567890"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
   </section>
 
-  <section>
+  <!-- Events Section -->
+  <section id="eventsSection">
     <h2>Events & Entertainment</h2>
     <div class="cards" id="eventsCards"></div>
+    <div class="adsense-box">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="2345678901"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
   </section>
 
+  <!-- Local Insights Section with original posts -->
   <section id="localInsightsSection">
     <h2>Local Insights</h2>
-    <div class="cards" id="localInsightsCards"></div>
+    <div class="cards" id="localInsightsCards">
+      <div class="card-inner">
+        <div class="content">
+          <div class="title">Exploring Johannesburg’s New Arts Scene</div>
+          <div class="desc">Discover how local artists are transforming Johannesburg neighborhoods with murals, exhibitions, and pop-up galleries.</div>
+        </div>
+      </div>
+      <div class="card-inner">
+        <div class="content">
+          <div class="title">Cape Town Beaches: Hidden Gems</div>
+          <div class="desc">A guide to Cape Town's lesser-known beaches offering serenity away from crowded tourist spots.</div>
+        </div>
+      </div>
+      <div class="card-inner">
+        <div class="content">
+          <div class="title">Eco-Friendly Cafés in Pretoria</div>
+          <div class="desc">Local cafés embracing sustainability with zero-waste initiatives, organic produce, and green energy solutions.</div>
+        </div>
+      </div>
+    </div>
+    <div class="adsense-box">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
+           data-ad-slot="3456789012"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
   </section>
 
-  <div id="adminPanel" class="show-admin">
-    <h3>Admin Panel — Live Revenue Simulator</h3>
-    <div style="margin-bottom:12px;">
-      <label>CTR (%): <input id="ctrInput" type="number" value="1" style="width:80px"></label>
-      <label style="margin-left:12px">CPC (ZAR): <input id="cpcInput" type="number" value="2" style="width:80px"></label>
-      <button onclick="calculateRevenue()">Recalculate Revenue</button>
-    </div>
-    <div style="margin-top:6px">
-      <strong>Daily Revenue:</strong> ZAR <span id="dailyRev">0</span> • 
-      <strong>Monthly Revenue:</strong> ZAR <span id="monthlyRev">0</span>
-    </div>
+  <!-- About Page -->
+  <section id="about" class="page-content">
+    <h2>About Wintech Technologies</h2>
+    <p>Wintech Technologies provides live South African news, events, entertainment, and local insights. Our mission is to keep you informed with accurate, up-to-date information delivered through a clean, easy-to-use platform.</p>
+  </section>
 
-    <h4>Simulation Table</h4>
-    <table class="revenue-table">
-      <thead>
-        <tr><th>Visitors</th><th>CTR %</th><th>CPC (ZAR)</th><th>Daily Revenue</th><th>Monthly Revenue</th></tr>
-      </thead>
-      <tbody id="revenueTableBody"></tbody>
-    </table>
-  </div>
+  <!-- Privacy Policy Page -->
+  <section id="privacy" class="page-content">
+    <h2>Privacy Policy</h2>
+    <p>We respect your privacy. Wintech Technologies does not share your personal information with third parties. Our website uses analytics and Google AdSense for advertising, which may collect anonymized visitor data.</p>
+  </section>
+
+  <!-- Contact Page -->
+  <section id="contact" class="page-content">
+    <h2>Contact Us</h2>
+    <ul>
+      <li>Email: <a href="mailto:infor@wintech.co.za">infor@wintech.co.za</a></li>
+      <li>Website: Wintech Technologies</li>
+    </ul>
+  </section>
 </main>
 
 <footer>
@@ -113,56 +163,77 @@ footer{margin-top:18px;padding:18px;background:#222;color:#fff;text-align:center
 </footer>
 
 <script>
-// Track live visitors per tab
-let tabViews={'general':0,'business':0,'sports':0,'entertainment':0,'events':0};
-const pageviewsPerVisitor=2.5, adsPerPage=4, monthlyDays=30;
+const categories=['general','business','sports','entertainment','events'];
+const RSS_FEEDS={
+  general:['https://www.news24.com/rss','https://ewn.co.za/RSS'],
+  business:['https://www.businesslive.co.za/bd/rss/','https://businesstech.co.za/feed/'],
+  sports:['https://www.sport24.co.za/RSS','https://www.bbc.co.uk/sport/africa/rss.xml'],
+  entertainment:['https://www.channel24.co.za/rss','https://www.iol.co.za/entertainment/rss'],
+  events:['https://www.capetownmagazine.com/rss','https://www.joburg.co.za/feed/']
+};
+const FALLBACK_IMG='https://via.placeholder.com/800x450?text=Wintech';
+let tabData={};
 
-// Simulate a visitor viewing a tab
+async function fetchFeed(url){
+  try{
+    const resp = await fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(url));
+    const json = await resp.json();
+    return (json.items||[]).map(it=>({
+      title: it.title||'',
+      link: it.link||'#',
+      description: (it.description||it.content||'').replace(/(<([^>]+)>)/gi,''),
+      thumbnail: it.thumbnail||it.enclosure?.link||FALLBACK_IMG
+    }));
+  }catch(e){ return []; }
+}
+
+async function loadAllTabs(){
+  for(const cat of categories){
+    const feeds=RSS_FEEDS[cat]||[];
+    const results=await Promise.allSettled(feeds.map(fetchFeed));
+    let items=[];
+    results.forEach(r=>{ if(r.status==='fulfilled') items=items.concat(r.value) });
+    tabData[cat]=items.slice(0,12);
+  }
+  renderAllTabs();
+}
+
+function renderAllTabs(){
+  const carouselTrack=document.getElementById('carouselTrack');
+  carouselTrack.innerHTML='';
+  ['general','business','sports','entertainment'].forEach(cat=>{
+    tabData[cat].forEach(it=>{
+      const card=document.createElement('div');
+      card.className='carousel-card';
+      card.innerHTML=`<img src="${it.thumbnail}" alt=""><div class="content"><div class="title">${it.title}</div><div class="desc">${it.description}</div><div class="actions"><a href="${it.link}" target="_blank">Read full story</a></div></div>`;
+      carouselTrack.appendChild(card);
+    });
+  });
+
+  const eventsContainer=document.getElementById('eventsCards');
+  eventsContainer.innerHTML='';
+  tabData['events'].forEach(it=>{
+    const card=document.createElement('div');
+    card.className='card-inner';
+    card.innerHTML=`<img src="${it.thumbnail}" alt=""><div class="content"><div class="title">${it.title}</div><div class="desc">${it.description}</div><div class="actions"><a href="${it.link}" target="_blank">View Event</a></div></div>`;
+    eventsContainer.appendChild(card);
+  });
+
+  const breakingTicker=document.getElementById('breakingNewsContent');
+  let allItems=[];
+  categories.forEach(cat=>allItems=allItems.concat(tabData[cat]));
+  breakingTicker.innerText=allItems.slice(0,15).map(i=>`🎉 ${i.title}`).join('  •  ');
+}
+
 function handleNav(e){
   document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
   e.currentTarget.classList.add('active');
-  const tab=e.currentTarget.dataset.cat;
-  tabViews[tab]+=1; // increment live views
-  calculateRevenue();
 }
 
-// Revenue calculator based on live views
-function calculateRevenue(){
-  const ctr=parseFloat(document.getElementById('ctrInput').value)/100||0.01;
-  const cpc=parseFloat(document.getElementById('cpcInput').value)||2;
-
-  const totalVisitors=Object.values(tabViews).reduce((a,b)=>a+b,0);
-  const monthlyPageviews=totalVisitors*pageviewsPerVisitor*monthlyDays;
-  const clicks=monthlyPageviews*adsPerPage*ctr;
-  const monthlyRevenue=clicks*cpc;
-  const dailyRevenue=monthlyRevenue/monthlyDays;
-
-  document.getElementById('dailyRev').innerText=dailyRevenue.toFixed(2);
-  document.getElementById('monthlyRev').innerText=monthlyRevenue.toFixed(2);
-
-  // Update simulation table
-  const visitorOptions=[1000,3000,10000];
-  const ctrOptions=[0.5,1,2];
-  const cpcOptions=[1.5,2,3];
-  const tbody=document.getElementById('revenueTableBody');
-  tbody.innerHTML='';
-  visitorOptions.forEach(v=>{
-    ctrOptions.forEach(ct=>{
-      cpcOptions.forEach(cp=>{
-        const mpv=v*pageviewsPerVisitor*monthlyDays;
-        const clicks=mpv*adsPerPage*(ct/100);
-        const mr=clicks*cp;
-        const dr=mr/monthlyDays;
-        const row=document.createElement('tr');
-        row.innerHTML=`<td>${v}</td><td>${ct}%</td><td>${cp}</td><td>${dr.toFixed(2)}</td><td>${mr.toFixed(2)}</td>`;
-        tbody.appendChild(row);
-      });
-    });
-  });
-}
-
-// Initial load
-calculateRevenue();
+// Auto-refresh every 60s
+loadAllTabs();
+setInterval(loadAllTabs,60000);
 </script>
+
 </body>
 </html>
